@@ -1,0 +1,13 @@
+
+.main-nav {
+  height: 110px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.main-nav a {
+  color: #2C2C2C;
+}
