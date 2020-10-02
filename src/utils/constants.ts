@@ -1,3 +1,5 @@
+export const ANONYMOUS_PHOTO_URL = 'https://via.placeholder.com/120x120';
+
 export const pictures = [
   { id: 1, src: '/assets/images/profiles/Anakin Skywalker.png' },
   { id: 2, src: '/assets/images/profiles/Baby Yoda.jpg' },

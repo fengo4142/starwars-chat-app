@@ -1,17 +1,18 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom';
-import './style.css';
+
+import { IUser } from '../../interfaces';
+import { ANONYMOUS_PHOTO_URL } from '../../utils/constants';
+
+import './style.scss';
 
 interface IState {
-  user: any,
+  user: IUser,
   logout: (event: React.MouseEvent<HTMLAnchorElement>) => void
 }
 
 const Header: FC<IState> = (props: IState) => {
-  const {
-    user,
-    logout
-  } = props;
+  const { user, logout } = props;
 
   return (
     <nav className="main-nav">
@@ -27,7 +28,7 @@ const Header: FC<IState> = (props: IState) => {
       {user && 
         <div className="wrapper-nav">
            <div className="leading">
-             <img src={user.photoURL} alt="counter part"/>
+             <img src={user.photoURL ? user.photoURL : ANONYMOUS_PHOTO_URL } alt="counter part"/>
              <div className="leading-info">
                <span className="leading-info__name">{ user.displayName }</span>
                <span className="leading-info__status">Active</span>

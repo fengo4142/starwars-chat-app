@@ -14,23 +14,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.main-nav{
-	text-align: right;
-	margin-bottom: 50px;
-	padding: 0 25px;
-}
-a{
+
+a {
 	color: #4D8FAC;
 	text-decoration: none;
 	transition: all .25s ease;
+	& :hover{
+		color: #5D8CAE;
+		text-decoration: underline;
+	}
 }
-a:hover{
-	color: #5D8CAE;
-	text-decoration: underline;
+
+/* width */
+::-webkit-scrollbar {
+  width: 2px;
 }
-.main-nav a{
-	display: inline-block;
-	padding: 0 25px;
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px #eee; 
+  border-radius: 4px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #eee; 
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #eee; 
 }
 
 .app {

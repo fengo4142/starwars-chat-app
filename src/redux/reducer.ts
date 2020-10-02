@@ -4,10 +4,7 @@ import {
   LOGIN_FAILURE,
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
-  SIGNUP_FAILURE,
-  GET_MESSAGE_REQUEST,
-  GET_MESSAGE_SUCCESS,
-  GET_MESSAGE_FAILURE,
+  SIGNUP_FAILURE
 } from './constant';
 
 const initialState = {
@@ -15,7 +12,7 @@ const initialState = {
   isLoggedIn: false,
   isSignedUp: false,
   user: null,
-  messages: [],
+  chats: [],
   error: null,
 };
 
@@ -65,27 +62,6 @@ export default function reducer(state = initialState, action) {
         ...state,
         loading: false,
         isSignedUp: false,
-        error: action.err,
-      };
-    case GET_MESSAGE_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        user: null,
-        messages: [],
-        error: null,
-      };
-    case GET_MESSAGE_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        messages: action.payload,
-        error: null,
-      };
-    case GET_MESSAGE_FAILURE:
-      return {
-        ...state,
-        loading: false,
         error: action.err,
       };
     default:

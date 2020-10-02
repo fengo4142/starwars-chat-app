@@ -5,7 +5,13 @@ import reducer from './redux/reducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const composeEnhancer = (process.env.NODE_ENV !== 'production' && window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']) || compose;
+declare global {
+    interface Window {
+      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ as typeof compose || compose;
 
 const reduxStore = createStore(
   reducer,

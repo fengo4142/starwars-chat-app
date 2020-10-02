@@ -1,24 +1,25 @@
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useEffect, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 
 import { loginRequest } from '../../redux/actions';
 
-import './style.css';
+import './style.scss';
 
 const Login: FC<{}> = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const error = useSelector(state => state.error)
-	const isLoggedIn = useSelector(state => state.isLoggedIn)
+	const { error, isLoggedIn } = useSelector(state => state)
 
-	if (isLoggedIn) {
-		history.push('/home');
-	}
+	useEffect(() => {
+		if (isLoggedIn) {
+			history.push('/home');
+		}
+	}, [isLoggedIn, history])
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault();
 		dispatch(loginRequest({ email, password }));
 	}
@@ -41,7 +42,7 @@ const Login: FC<{}> = () => {
 					onChange={e => setPassword(e.target.value)}
 				/>
 				<button type="submit" className="general-submit">Log in</button>
-				<p>Don't have an account yet? <Link className="login-btn" to="/signup">Register here</Link></p>
+				<p>Do not have an account yet? <Link className="login-btn" to="/signup">Register here</Link></p>
 			</form>
 		</div>
 	);

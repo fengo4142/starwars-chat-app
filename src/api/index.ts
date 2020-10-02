@@ -1,4 +1,4 @@
-import firebase from '../firebase';
+import * as firebase from 'firebase/app';
 
 export const login = ({ email, password }) => {
   return new Promise((resolve, reject) => {
@@ -31,14 +31,3 @@ export const signup = ({ email, password, username, photoURL }) => {
       });
   })
 }
-
-export const getMessage = () => {
-  return new Promise((resolve, reject) => {
-    const chatRef = firebase.database().ref('general');
-		chatRef.on('value', snapshot => {
-			const messages = snapshot.val();
-      resolve(messages || [])
-    })
-  })
-}
-

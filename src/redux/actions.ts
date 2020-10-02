@@ -30,16 +30,3 @@ export const signupFailure = err => ({
   err,
 });
 
-export const getMessageRequest = () => ({
-  type: ActionTypes.GET_MESSAGE_REQUEST
-});
-
-export const getMessageSuccess = payload => ({
-  type: ActionTypes.GET_MESSAGE_SUCCESS,
-  payload
-});
-
-export const getMessageFailure = err => ({
-  type: ActionTypes.GET_MESSAGE_FAILURE,
-  err,
-});

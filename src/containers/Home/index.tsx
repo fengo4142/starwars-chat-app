@@ -1,37 +1,49 @@
-import React, { useState, useEffect, FC } from 'react';
+import React, { useState, useEffect, FC, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 import firebase from '../../firebase';
+import Chatbox from '../../components/Chatbox';
+import { IChat } from '../../interfaces';
 
-import { getMessageRequest } from '../../redux/actions';
-import Chat from '../../components/Chat';
-
-import './style.css';
+import './style.scss';
 
 const Home: FC<{}> = () => {
-  const dispatch = useDispatch()
+	const [chats, setChats] = useState([] as IChat[])
   const [message, setMessage] = useState('')
-	
+	const [isSending, setIsSending] = useState(false)
+
   const user = useSelector(state => state.user)
-	const messages = useSelector(state => state.messages)
 
 	useEffect(() => {
-  	dispatch(getMessageRequest())
-	}, [])
+    setIsSending(false);
 
-	const handleSubmit = event => {
+    const chatRef = firebase.database().ref('general');
+		chatRef.on('value', snapshot => {
+			const data = snapshot.val();
+      const items: IChat[] = Object.keys(data).map(item => {
+        return { ...data[item], id: item }
+      });
+      setChats(items)
+    })
+	}, [isSending])
+
+	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
-		if (message !== '') {
+    if (message !== '') {
 			const chatRef = firebase.database().ref('general');
-      console.log(chatRef, "ref")
-			const chat = {
+			const chat: IChat = {
+        id: '',
 				message,
+        email: user.email,
 				user: user.displayName,
+        photoURL: user.photoURL,
 				timestamp: new Date().getTime()
 			}
 			
 			chatRef.push(chat);
       setMessage('')
+      setIsSending(true)
 		}
 	}
 
@@ -40,7 +52,7 @@ const Home: FC<{}> = () => {
       <h1>Connected as {user && user.displayName}</h1>
       {user && 
         <div className="allow-chat">
-          <Chat user={user} messages={messages} />
+          <Chatbox user={user} chats={chats} />
           <form className="send-chat" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -49,7 +61,7 @@ const Home: FC<{}> = () => {
               value={message} 
               onChange={e => setMessage(e.target.value)} 
               placeholder='Leave a message...' />
-              <div className="send-btn">
+              <div className="send-btn" role="button" tabIndex={0} onClick={handleSubmit}>
                 <img src="/assets/images/icons/send-message.svg" alt="send" />
               </div>
           </form>

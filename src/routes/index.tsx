@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import Login from '../containers/Login';
 import SignUp from '../containers/SignUp';
@@ -27,6 +26,7 @@ const PrivateRoute = ({ isLoggedIn, component: Component, ...rest }) => {
 };
 
 const AppRouter = ({ isLoggedIn }) => {
+
   return (
     <Switch>
       <Route path="/" exact component={() => <Redirect to="/home" />} />
@@ -37,8 +37,4 @@ const AppRouter = ({ isLoggedIn }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  isLoggedIn: state.isLoggedIn,
-});
-
-export default connect(mapStateToProps)(AppRouter);
+export default AppRouter;

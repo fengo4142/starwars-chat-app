@@ -1,26 +1,29 @@
-import React, { useState, FC } from 'react';
+import React, { useState, useEffect, FC, FormEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signupRequest } from '../../redux/actions';
 
 import { pictures } from '../../utils/constants';
-import './style.css';
+import './style.scss';
 
 const SignUp: FC<{}> = () => {
   const dispatch = useDispatch()
   const history = useHistory();
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [photoURL, setPhotoURL] = useState('');
-	const isSignedUp = useSelector(state => state.isSignedUp)
-  const error = useSelector(state => state.error)
 
-	if (isSignedUp) {
-		history.push('/login');
-	}
+	const { error, isSignedUp } = useSelector(state => state)
 
-	const handleSubmit = async (event) => {
+  useEffect(() => {
+    if (isSignedUp) {
+      history.push('/login');
+    }
+	}, [isSignedUp, history])
+
+	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault();
 		dispatch(signupRequest({ username, email, password, photoURL }))
 	}
@@ -35,10 +38,11 @@ const SignUp: FC<{}> = () => {
             alt="gallery item"
             key={item.id} 
             src={item.src}
-            style={{ border: item.src === photoURL ? '2px solid #e90808' : 'none' }} 
-            onClick={e => setPhotoURL(item.src)} /> 
+            className={ item.src === photoURL ? 'active' : '' }
+            onClick={() => setPhotoURL(item.src)} /> 
         )}
       </div>
+      <p>Select one character photo for you!</p>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username</label>
         <input type="text" name="username" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -52,7 +56,7 @@ const SignUp: FC<{}> = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="general-submit" children="Get Started" />
+        <button type="submit" className="general-submit">Get Started</button>
         <p>Already have an account? <Link className="login-btn" to="/login">Login here</Link></p>
       </form>
     </div>
