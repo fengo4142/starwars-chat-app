@@ -1,23 +1,32 @@
-import React, { useState, FC } from 'react';
+import React, { useState, useEffect, FC } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import firebase from '../../firebase';
-import {Link} from 'react-router-dom';
 
+import { getMessageRequest } from '../../redux/actions';
 import Chat from '../../components/Chat';
 
 import './style.css';
 
 const Home: FC<{}> = () => {
+  const dispatch = useDispatch()
   const [message, setMessage] = useState('')
-	const props = { user: {
-    displayName: 'R'
-  }}
+	
+  const user = useSelector(state => state.user)
+	const messages = useSelector(state => state.messages)
+
+	useEffect(() => {
+  	dispatch(getMessageRequest())
+	}, [])
+
 	const handleSubmit = event => {
 		event.preventDefault();
-		if(message !== ''){
+		if (message !== '') {
 			const chatRef = firebase.database().ref('general');
+      console.log(chatRef, "ref")
 			const chat = {
-				message: message,
-				user: props.user.displayName,
+				message,
+				user: user.displayName,
 				timestamp: new Date().getTime()
 			}
 			
@@ -28,10 +37,10 @@ const Home: FC<{}> = () => {
 
   return(
     <div className="home-container">
-      <h1>Connected as Obi-Wan Kenobi</h1>
-      {props.user && 
+      <h1>Connected as {user && user.displayName}</h1>
+      {user && 
         <div className="allow-chat">
-          <Chat />
+          <Chat user={user} messages={messages} />
           <form className="send-chat" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -41,12 +50,12 @@ const Home: FC<{}> = () => {
               onChange={e => setMessage(e.target.value)} 
               placeholder='Leave a message...' />
               <div className="send-btn">
-                <img src="/assets/images/icons/send-message.svg" />
+                <img src="/assets/images/icons/send-message.svg" alt="send" />
               </div>
           </form>
         </div>
       }
-      {!props.user && 
+      {!user && 
         <div className="disallow-chat">
           <p><Link to="/login">Login</Link> or <Link to="/register">Register</Link> to start chatting!</p>
         </div>

@@ -1,4 +1,3 @@
-import { resolve } from 'path';
 import firebase from '../firebase';
 
 export const login = ({ email, password }) => {
@@ -13,7 +12,7 @@ export const login = ({ email, password }) => {
   })
 }
 
-export const signup = ({ email, password, username }) => {
+export const signup = ({ email, password, username, photoURL }) => {
   return new Promise((resolve, reject) => {
     firebase
       .auth()
@@ -21,7 +20,7 @@ export const signup = ({ email, password, username }) => {
       .then(() => {
         const user = firebase.auth().currentUser;
         if (user) {
-          user.updateProfile({displayName: username})
+          user.updateProfile({displayName: username, photoURL})
             .then(() => {
               resolve()
             })
@@ -37,8 +36,8 @@ export const getMessage = () => {
   return new Promise((resolve, reject) => {
     const chatRef = firebase.database().ref('general');
 		chatRef.on('value', snapshot => {
-			const chats = snapshot.val();
-      resolve(chats ? chats : [])
+			const messages = snapshot.val();
+      resolve(messages || [])
     })
   })
 }

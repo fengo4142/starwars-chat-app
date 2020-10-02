@@ -1,26 +1,44 @@
 import React, { useState, FC } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { signupRequest } from '../../redux/actions';
 
+import { pictures } from '../../utils/constants';
 import './style.css';
 
 const SignUp: FC<{}> = () => {
   const dispatch = useDispatch()
+  const history = useHistory();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  const [photoURL, setPhotoURL] = useState('');
+	const isSignedUp = useSelector(state => state.isSignedUp)
+  const error = useSelector(state => state.error)
 
-	const handleSubmit = event => {
+	if (isSignedUp) {
+		history.push('/login');
+	}
+
+	const handleSubmit = async (event) => {
 		event.preventDefault();
-		dispatch(signupRequest({ username, email, password }))
+		dispatch(signupRequest({ username, email, password, photoURL }))
 	}
 
   return (
     <div className="signup-container">
       <h1>Register your account</h1>
-      {/* {error && <p className="error-message">{error && error.message}</p>} */}
+      {error && <p className="error-message">{error && error.message}</p>}
+      <div className="photo-wrapper">
+        {pictures.map(item => 
+          <img
+            alt="gallery item"
+            key={item.id} 
+            src={item.src}
+            style={{ border: item.src === photoURL ? '2px solid #e90808' : 'none' }} 
+            onClick={e => setPhotoURL(item.src)} /> 
+        )}
+      </div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username</label>
         <input type="text" name="username" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />

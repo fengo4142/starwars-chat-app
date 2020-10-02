@@ -23,9 +23,10 @@ function* loginRequestHandler({ payload }: ReturnType<any>) {
 
 function* signupRequestHandler({ payload }: ReturnType<any>) {
   try {
-    const { data } = yield call(api.signup, payload)
+    const response = yield call(api.signup, payload)
+    console.log(response, "-ss-")
 
-    yield put(signupSuccess(data));
+    yield put(signupSuccess(response));
   } catch (err) {
     yield put(signupFailure(err));
   }
@@ -33,9 +34,9 @@ function* signupRequestHandler({ payload }: ReturnType<any>) {
 
 function* getMessageRequestHandler() {
   try {
-    const { data } = yield call(api.getMessage)
-
-    yield put(getMessageSuccess(data));
+    const response = yield call(api.getMessage)
+    console.log(response)
+    yield put(getMessageSuccess(response));
   } catch (err) {
     yield put(getMessageFailure(err));
   }

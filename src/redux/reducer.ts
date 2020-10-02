@@ -2,6 +2,9 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  SIGNUP_REQUEST,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE,
   GET_MESSAGE_REQUEST,
   GET_MESSAGE_SUCCESS,
   GET_MESSAGE_FAILURE,
@@ -10,9 +13,9 @@ import {
 const initialState = {
   loading: false,
   isLoggedIn: false,
-  username: null,
-  otherUsername: null,
-  title: null,
+  isSignedUp: false,
+  user: null,
+  messages: [],
   error: null,
 };
 
@@ -23,9 +26,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         loading: true,
         isLoggedIn: false,
-        username: null,
-        otherUsername: null,
-        title: null,
+        user: null,
         error: null,
       };
     case LOGIN_SUCCESS:
@@ -33,9 +34,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         loading: false,
         isLoggedIn: true,
-        username: action.payload,
-        otherUsername: action.payload,
-        title: `${action.payload} and ${action.payload}`,
+        user: action.payload,
         error: null,
       };
     case LOGIN_FAILURE:
@@ -43,33 +42,50 @@ export default function reducer(state = initialState, action) {
         ...state,
         loading: false,
         isLoggedIn: false,
-        username: null,
-        otherUsername: null,
-        title: null,
+        user: null,
+        error: action.err,
+      };
+    case SIGNUP_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        isSignedUp: false,
+        error: null,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSignedUp: true,
+        user: action.payload,
+        error: null,
+      };
+    case SIGNUP_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSignedUp: false,
         error: action.err,
       };
     case GET_MESSAGE_REQUEST:
       return {
         ...state,
         loading: true,
-        title: null,
-        otherUsername: null,
+        user: null,
+        messages: [],
         error: null,
       };
     case GET_MESSAGE_SUCCESS:
       return {
         ...state,
         loading: false,
-        otherUsername: action.payload.otherUsername,
-        title: action.payload.title,
+        messages: action.payload,
         error: null,
       };
     case GET_MESSAGE_FAILURE:
       return {
         ...state,
         loading: false,
-        otherUsername: null,
-        title: null,
         error: action.err,
       };
     default:

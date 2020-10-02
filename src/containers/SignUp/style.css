@@ -1,10 +1,10 @@
 .signup-container{
-	max-width: 500px;
 	width: 95%;
-	margin: 0 auto;
+	text-align: center;	
 }
-.signup-container{
-	text-align: center;
+.signup-container > form{
+	margin: 0 auto;
+	max-width: 500px;
 }
 .signup-container label{
 	display: block;
@@ -38,4 +38,21 @@
 
 .signup-container a {
 	color: #2C2C2C;
+}
+
+.photo-wrapper {
+	display: flex;
+	justify-content: center;
+	margin: 20px 0;
+}
+
+.photo-wrapper img {
+	width: 50px;
+	height: 50px;
+	margin: 10px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+.photo-wrapper img:active {
+	border: 1px solid #ccc;
 }

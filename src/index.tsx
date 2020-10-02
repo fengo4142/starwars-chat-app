@@ -1,19 +1,17 @@
-import React, { useEffect, useState, FC } from 'react';
+import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider, useSelector } from 'react-redux';
-import firebase, { auth } from './firebase.js'
+import firebase from './firebase.js'
 
 import Routes from './routes';
 import reduxStore from './store';
 import Header from './components/Header';
 
-import 'antd/dist/antd.css';
 import './index.css';
 
 const AppRouter: FC<{}> = () => {
-	const [user, setUser] = useState(null);
-	const isLoggedIn = useSelector(state => state.isLoggedIn)
+	const user = useSelector(state => state.user)
 
 	const handleLogout = () => {
 		firebase.auth().signOut()
@@ -23,7 +21,7 @@ const AppRouter: FC<{}> = () => {
 	return(
 		<div className="app">
 			<BrowserRouter>
-				<Header isLoggedIn={isLoggedIn} logout={handleLogout} />
+				<Header user={user} logout={handleLogout} />
 				<Routes />
 			</BrowserRouter>
 		</div>

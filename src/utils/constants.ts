@@ -1,12 +1,12 @@
 export const pictures = [
-  '/assets/images/profiles/Anakin Skywalker.png',
-  '/assets/images/profiles/Baby Yoda.jpng',
-  '/assets/images/profiles/Ben solo.jpg',
-  '/assets/images/profiles/Darth Vader.jpg',
-  '/assets/images/profiles/Emperor Palpatine.png',
-  '/assets/images/profiles/Han Solo.jpg',
-  '/assets/images/profiles/Luke Skywalker.jpg',
-  '/assets/images/profiles/Obi-Wan Kenobi.jpg',
-  '/assets/images/profiles/Qui-Gon Jinn.jpeg',
-  '/assets/images/profiles/Rey.jpeg'
-]
+  { id: 1, src: '/assets/images/profiles/Anakin Skywalker.png' },
+  { id: 2, src: '/assets/images/profiles/Baby Yoda.jpg' },
+  { id: 3, src: '/assets/images/profiles/Ben solo.jpg' },
+  { id: 4, src: '/assets/images/profiles/Darth Vader.jpg' },
+  { id: 5, src: '/assets/images/profiles/Emperor Palpatine.png' },
+  { id: 6, src: '/assets/images/profiles/Han Solo.jpg' },
+  { id: 7, src: '/assets/images/profiles/Luke Skywalker.jpg' },
+  { id: 8, src: '/assets/images/profiles/Obi-Wan Kenobi.jpg' },
+  { id: 9, src: '/assets/images/profiles/Qui-Gon Jinn.jpeg' },
+  { id: 10, src: '/assets/images/profiles/Rey.jpeg' }
+];
