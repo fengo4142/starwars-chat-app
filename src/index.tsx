@@ -11,26 +11,26 @@ import Header from './components/Header';
 import './index.scss';
 
 const AppRouter: FC<{}> = () => {
-	const { user, isLoggedIn } = useSelector(state => state)
-	
-	const handleLogout = () => {
-		auth.signOut()
-			.then(window.location = "/" as any);
-	}
+  const { user, isLoggedIn } = useSelector(state => state)
+  
+  const handleLogout = () => {
+    auth.signOut()
+      .then(window.location = "/" as any);
+  }
 
-	return(
-		<div className="app">
-			<BrowserRouter>
-				<Header user={user} logout={handleLogout} />
-				<Routes isLoggedIn={isLoggedIn} />
-			</BrowserRouter>
-		</div>
-	);
+  return(
+    <div className="app">
+      <BrowserRouter>
+        <Header user={user} logout={handleLogout} />
+        <Routes isLoggedIn={isLoggedIn} />
+      </BrowserRouter>
+    </div>
+  );
 }
 
 ReactDOM.render(
-	<Provider store={reduxStore}>
-		<AppRouter />
-	</Provider>,
-	document.getElementById('root')
+  <Provider store={reduxStore}>
+    <AppRouter />
+  </Provider>,
+  document.getElementById('root')
 );

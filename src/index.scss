@@ -1,52 +1,52 @@
 * 	{box-sizing: border-box;}
 
 body {
-	margin: 0;
-	padding: 0;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-		sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 a {
-	color: #4D8FAC;
-	text-decoration: none;
-	transition: all .25s ease;
-	& :hover{
-		color: #5D8CAE;
-		text-decoration: underline;
-	}
+  color: #4D8FAC;
+  text-decoration: none;
+  transition: all .25s ease;
+  & :hover{
+    color: #5D8CAE;
+    text-decoration: underline;
+  }
 }
 
 /* width */
 ::-webkit-scrollbar {
-	width: 2px;
+  width: 2px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 2px #eee; 
-	border-radius: 4px;
+  box-shadow: inset 0 0 2px #eee; 
+  border-radius: 4px;
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: #eee; 
-	border-radius: 4px;
+  background: #eee; 
+  border-radius: 4px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	background: #eee; 
+  background: #eee; 
 }
 
 .app {
-	height: 100vh;
+  height: 100vh;
 }
