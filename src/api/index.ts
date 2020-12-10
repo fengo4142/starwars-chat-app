@@ -21,9 +21,7 @@ export const signup = ({ email, password, username, photoURL }) => {
 				const user = firebase.auth().currentUser;
 				if (user) {
 					user.updateProfile({displayName: username, photoURL})
-						.then((data) => {
-							resolve(data)
-						})
+						.then((res) => resolve(res))
 				}
 			})
 			.catch(error => {
