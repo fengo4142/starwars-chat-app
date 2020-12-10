@@ -14,12 +14,12 @@ const Chatbox: FC<IState> = (props: IState) => {
 	const { user, chats } = props;
 	const messagesEndRef = useRef<null | HTMLUListElement>(null)
 
-  const scrollToBottom = () => {
-    if (messagesEndRef && messagesEndRef.current) {
+	const scrollToBottom = () => {
+		if (messagesEndRef && messagesEndRef.current) {
 			// messagesEndRef.current.scrollIntoView({ block: 'end', behavior: "smooth", inline: "nearest" })
 			messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
 		}
-  }
+	}
 
 	useEffect(scrollToBottom, [chats])
 
